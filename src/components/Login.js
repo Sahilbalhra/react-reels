@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography } from "@mui/material/";
-import { auth, signInWithEmailAndPassword } from "../firebase";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
@@ -25,6 +26,10 @@ const Login = () => {
 
     setLoader(false);
   };
+  const signout = async () => {
+    await signOut(auth);
+    setUser(null);
+  };
   return (
     <>
       {error !== "" ? (
@@ -32,7 +37,10 @@ const Login = () => {
       ) : loader ? (
         <h1> ... loading</h1>
       ) : user != null ? (
-        <h1> user is {user.uid}</h1>
+        <>
+          <button onClick={signout}>SignOut</button>
+          <h1> user is {user.uid}</h1>
+        </>
       ) : (
         <Box
           component="div"
