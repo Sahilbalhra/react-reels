@@ -1,6 +1,7 @@
-import firebase from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAuth,signInWithEmailAndPassword } from "firebase/auth";
 import secret from "./secrets";
-firebase.initializeApp(secret);
+let app = initializeApp(secret);
 
-export let auth =firebase.auth();
+export let auth = getAuth(app);
+export {signInWithEmailAndPassword}
