@@ -1,0 +1,19 @@
+body {
+  margin: 0px;
+}
+.header {
+  height: 5rem;
+  border-bottom: 2px solid black;
+}
+.pimg {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+}
+.main {
+  display: flex;
+  height: calc(100vh-10rem);
+}
+.details {
+  text-align: center;
+}
