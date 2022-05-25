@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, TextField, Button, Typography } from "@mui/material/";
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState("");
-  const printDetails = async (e) => {
+  const [mainLoader, setMainLoader] = useState(true);
+
+  const login = async (e) => {
     e.preventDefault();
     // console.log(email + " " + pwd);
     try {
@@ -30,10 +36,25 @@ const Login = () => {
     await signOut(auth);
     setUser(null);
   };
+  //it is used to check user is signed in aur not on page  reload
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+      setMainLoader(false);
+    });
+  }, []);
+
   return (
     <>
-      {error !== "" ? (
-        <h1> Error is {error}</h1>
+      {/* {error !== "" ? (
+       <h1> Error is {error}</h1>
+      ) :  */}
+      {mainLoader ? (
+        <h1>Page is Loading....</h1>
       ) : loader ? (
         <h1> ... loading</h1>
       ) : user != null ? (
@@ -48,7 +69,7 @@ const Login = () => {
           m="auto"
           sx={{ border: "2px solid black", p: 2, borderRadius: "25px" }}
         >
-          <form onSubmit={printDetails}>
+          <form onSubmit={login}>
             <TextField
               label="Enter Email"
               type="text"
@@ -65,9 +86,13 @@ const Login = () => {
               value={pwd}
               onChange={(e) => setPwd(e.target.value)}
             />
-            <Typography variant="body1" color="red">
-              Error
-            </Typography>
+            {error !== "" ? (
+              <Typography variant="body1" color="red">
+                {error}
+              </Typography>
+            ) : (
+              ""
+            )}
             <Button
               variant="contained"
               type="submit"
