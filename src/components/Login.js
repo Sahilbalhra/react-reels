@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, TextField, Button, Typography } from "@mui/material/";
 import { auth } from "../firebase";
 import {
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
+  // onAuthStateChanged,
 } from "firebase/auth";
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ const Login = () => {
   const [user, setUser] = useState("");
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState("");
-  const [mainLoader, setMainLoader] = useState(true);
+  // const [mainLoader, setMainLoader] = useState(true);
 
   const login = async (e) => {
     e.preventDefault();
@@ -37,25 +37,26 @@ const Login = () => {
     setUser(null);
   };
   //it is used to check user is signed in aur not on page  reload
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-      setMainLoader(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setUser(user);
+  //     } else {
+  //       setUser(null);
+  //     }
+  //     setMainLoader(false);
+  //   });
+  // }, []);
 
   return (
     <>
       {/* {error !== "" ? (
        <h1> Error is {error}</h1>
       ) :  */}
-      {mainLoader ? (
+      {/* {mainLoader ? (
         <h1>Page is Loading....</h1>
-      ) : loader ? (
+      ) : */}
+      {loader ? (
         <h1> ... loading</h1>
       ) : user != null ? (
         <>
