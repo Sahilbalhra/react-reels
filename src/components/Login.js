@@ -6,6 +6,7 @@ import {
   signOut,
   // onAuthStateChanged,
 } from "firebase/auth";
+import logo from '../assets/logo.png'
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
@@ -32,7 +33,8 @@ const Login = () => {
 
     setLoader(false);
   };
-  const signout = async () => {
+  const signout = async (e) => {
+    e.preventDefault();
     await signOut(auth);
     setUser(null);
   };
@@ -70,6 +72,7 @@ const Login = () => {
           m="auto"
           sx={{ border: "2px solid black", p: 2, borderRadius: "25px" }}
         >
+          <Box component="img" src={logo} ></Box>
           <form onSubmit={login}>
             <TextField
               label="Enter Email"
