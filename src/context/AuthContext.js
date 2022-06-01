@@ -7,7 +7,6 @@ export const AuthContext=createContext();
 export function AuthContextProvider({children }){
     const [cuser, setUser] = useState(null);
     const [mainLoader, setMainLoader] = useState(true);
-
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
         if (user) {

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Box, TextField, Button, Typography } from "@mui/material/";
 import { auth } from "../firebase";
+
 import {
   signInWithEmailAndPassword,
   signOut,
-  // onAuthStateChanged,
+  onAuthStateChanged,
 } from "firebase/auth";
-import logo from '../assets/logo.png'
+import logo from "../assets/logo.png";
+// import person from "../assets/person.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
@@ -33,22 +35,22 @@ const Login = () => {
 
     setLoader(false);
   };
-  const signout = async (e) => {
-    e.preventDefault();
+  const signout = async () => {
+    // e.preventDefault();
     await signOut(auth);
     setUser(null);
   };
   //it is used to check user is signed in aur not on page  reload
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setUser(user);
-  //     } else {
-  //       setUser(null);
-  //     }
-  //     setMainLoader(false);
-  //   });
-  // }, []);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+      // setMainLoader(false);
+    });
+  }, []);
 
   return (
     <>
@@ -68,44 +70,55 @@ const Login = () => {
       ) : (
         <Box
           component="div"
-          width="80%"
-          m="auto"
-          sx={{ border: "2px solid black", p: 2, borderRadius: "25px" }}
+          width="90%"
+          margin="10rem auto"
+          sx={{ display: "flex" }}
         >
-          <Box component="img" src={logo} ></Box>
-          <form onSubmit={login}>
-            <TextField
-              label="Enter Email"
-              type="text"
-              fullWidth
-              margin="dense"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              margin="dense"
-              value={pwd}
-              onChange={(e) => setPwd(e.target.value)}
-            />
-            {error !== "" ? (
-              <Typography variant="body1" color="red">
-                {error}
-              </Typography>
-            ) : (
-              ""
-            )}
-            <Button
-              variant="contained"
-              type="submit"
-              fullWidth
-              // onClick={(e) => e.preventDefault()}
-            >
-              Login
-            </Button>
-          </form>
+          {/* <Box component="div" width="50%">
+            <Box component="img" width="100%" higth="100%" src={person}></Box>
+          </Box> */}
+          <Box
+            component="div"
+            width="50%"
+            // m="10rem auto"
+            sx={{ border: "2px solid black", p: 2, borderRadius: "25px" }}
+          >
+            <Box component="img" src={logo} width="100%" higth="100%" ></Box>
+            <form onSubmit={login}>
+              <TextField
+                label="Enter Email"
+                type="text"
+                fullWidth
+                sx={{ mb: 2 }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                label="Password"
+                type="password"
+                fullWidth
+                margin="dense"
+                value={pwd}
+                sx={{ mb: 2 }}
+                onChange={(e) => setPwd(e.target.value)}
+              />
+              {error !== "" ? (
+                <Typography variant="body1" color="red">
+                  {error}
+                </Typography>
+              ) : (
+                ""
+              )}
+              <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                // onClick={(e) => e.preventDefault()}
+              >
+                Login
+              </Button>
+            </form>
+          </Box>
         </Box>
       )}
     </>

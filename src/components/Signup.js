@@ -5,7 +5,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signOut, createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore";
-import { auth,db } from "../firebase";
+import { auth, db } from "../firebase";
+import logo from "../assets/logo.png";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -23,15 +24,14 @@ const Signup = () => {
       let userCred = await createUserWithEmailAndPassword(auth, email, pwd);
       setUser(userCred.user);
 
-      // Add a new document in collection 
+      // Add a new document in collection
       await addDoc(collection(db, "users"), {
         email,
         name,
-        reelsIds:[],
-        profileImgUrl:"",
-        userId:userCred.user.uid
+        reelsIds: [],
+        profileImgUrl: "",
+        userId: userCred.user.uid,
       });
-
     } catch (err) {
       setError(err.message);
       //after some error mssg should be disapear
@@ -61,16 +61,17 @@ const Signup = () => {
         <>
           <Box
             component="div"
-            width="80%"
-            m="auto"
+            width="600px"
+            m="5rem auto 0"
             sx={{ border: "1px solid black", p: 2, borderRadius: "5px" }}
           >
+            <Box component="img" src={logo}></Box>
             <form onSubmit={signup}>
               <TextField
                 label="Enter Email"
                 type="text"
                 fullWidth
-                margin="dense"
+                sx={{ mb: 2 }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -78,7 +79,7 @@ const Signup = () => {
                 label="Password"
                 type="password"
                 fullWidth
-                margin="dense"
+                sx={{ mb: 2 }}
                 value={pwd}
                 onChange={(e) => setPwd(e.target.value)}
               />
@@ -86,7 +87,7 @@ const Signup = () => {
                 label="Full Name"
                 type="text"
                 fullWidth
-                margin="dense"
+                sx={{ mb: 2 }}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -126,7 +127,7 @@ const Signup = () => {
           </Box>
           <Box
             component="div"
-            width="80%"
+            width="600px"
             m="auto"
             sx={{
               border: "1px solid black",
