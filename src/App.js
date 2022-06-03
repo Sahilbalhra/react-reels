@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <RedirectToFeed path="/login" comp={Login} >
-          {/* <Login/> */}
+          <Login/>
           </RedirectToFeed>
         <RedirectToFeed path="/signup" comp={Signup}>
           {/* <Signup/> */}

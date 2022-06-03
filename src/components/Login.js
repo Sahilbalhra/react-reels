@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from "react";
-import { Box, TextField, Button, Typography } from "@mui/material/";
+import React, { useState, useEffect } from "react";
+import { Box, TextField, Button, Typography, Grid } from "@mui/material/";
+import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 
 import {
@@ -8,7 +9,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import logo from "../assets/logo.png";
-// import person from "../assets/person.png";
+import person from "../assets/—Pngtree—modern flat design concept of_5332905.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
@@ -74,51 +75,72 @@ const Login = () => {
           margin="10rem auto"
           sx={{ display: "flex" }}
         >
-          {/* <Box component="div" width="50%">
-            <Box component="img" width="100%" higth="100%" src={person}></Box>
-          </Box> */}
-          <Box
-            component="div"
-            width="50%"
-            // m="10rem auto"
-            sx={{ border: "2px solid black", p: 2, borderRadius: "25px" }}
-          >
-            <Box component="img" src={logo} width="100%" higth="100%" ></Box>
-            <form onSubmit={login}>
-              <TextField
-                label="Enter Email"
-                type="text"
-                fullWidth
-                sx={{ mb: 2 }}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <TextField
-                label="Password"
-                type="password"
-                fullWidth
-                margin="dense"
-                value={pwd}
-                sx={{ mb: 2 }}
-                onChange={(e) => setPwd(e.target.value)}
-              />
-              {error !== "" ? (
-                <Typography variant="body1" color="red">
-                  {error}
-                </Typography>
-              ) : (
-                ""
-              )}
-              <Button
-                variant="contained"
-                type="submit"
-                fullWidth
-                // onClick={(e) => e.preventDefault()}
+          <Grid container spacing={2}>
+            <Grid item xs={0} md={6}>
+              <Box component="img" width="100%" higth="100%" src={person}></Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box
+                component="div"
+                sx={{ border: "2px solid black", p: 2, borderRadius: "10px" }}
               >
-                Login
-              </Button>
-            </form>
-          </Box>
+                <Box component="img" src={logo} width="100%" higth="100%"></Box>
+                <form onSubmit={login}>
+                  <TextField
+                    label="Enter Email"
+                    type="text"
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <TextField
+                    label="Password"
+                    type="password"
+                    fullWidth
+                    margin="dense"
+                    value={pwd}
+                    sx={{ mb: 2 }}
+                    onChange={(e) => setPwd(e.target.value)}
+                  />
+                  {error !== "" ? (
+                    <Typography variant="body1" color="red">
+                      {error}
+                    </Typography>
+                  ) : (
+                    ""
+                  )}
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    fullWidth
+                    // onClick={(e) => e.preventDefault()}
+                  >
+                    Login
+                  </Button>
+                </form>
+              </Box>
+              <Box
+                component="div"
+                m="auto"
+                sx={{
+                  border: "2px solid black",
+                  p: 2,
+                  mt: 2,
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography varient="body1">
+                  Do not have an account ?&ensp;
+                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                    SignUp
+                  </Link>
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
       )}
     </>

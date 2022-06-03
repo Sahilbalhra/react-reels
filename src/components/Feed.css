@@ -1,0 +1,23 @@
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.logo_img{
+    height: 5rem;
+}
+.profile_img{
+    height: 2.5rem;
+    width: 2.5rem;
+    object-fit: contain;
+    border-radius: 50%;
+}
+.main_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    margin: auto;
+}
