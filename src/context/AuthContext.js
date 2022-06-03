@@ -15,10 +15,10 @@ export function AuthContextProvider({children }){
           setUser(null);
         }
         setMainLoader(false);
-      });
+       });
     }, []);
 
-    let value={cuser}
+    let value=cuser;
 
     return(
         <AuthContext.Provider value={value}>

@@ -52,12 +52,14 @@ const Signup = () => {
     <>
       {loader ? (
         <h1> ... loading</h1>
-      ) : user != null ? (
+      ) 
+      : user != null ? (
         <>
           <button onClick={signout}>SignOut</button>
           <h1> Signed Up user is {user.uid}</h1>
         </>
-      ) : (
+      ) 
+      : (
         <>
           <Box
             component="div"

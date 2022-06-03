@@ -40,7 +40,7 @@ const Login = () => {
     await signOut(auth);
     setUser(null);
   };
-  //it is used to check user is signed in aur not on page  reload
+  // it is used to check user is signed in aur not on page  reload
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
