@@ -4,7 +4,8 @@ import BackupIcon from "@mui/icons-material/Backup";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore"; 
+// import { collection, addDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import logo from "../assets/logo.png";
 
@@ -25,13 +26,20 @@ const Signup = () => {
       setUser(userCred.user);
 
       // Add a new document in collection
-      await addDoc(collection(db, "users"), {
+      await setDoc(doc(db, "users",userCred.user.uid), {
         email,
         name,
         reelsIds: [],
         profileImgUrl: "",
         userId: userCred.user.uid,
       });
+      // await addDoc(collection(db, "users"), {
+      //   email,
+      //   name,
+      //   reelsIds: [],
+      //   profileImgUrl: "",
+      //   userId: userCred.user.uid,
+      // });
     } catch (err) {
       setError(err.message);
       //after some error mssg should be disapear
